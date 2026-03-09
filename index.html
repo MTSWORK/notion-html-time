@@ -2,50 +2,78 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Digital Clock</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Clock Widget</title>
 
 <style>
+
 body{
-    margin:0;
-    background:#ffffff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    font-family: 'Courier New', monospace;
+margin:0;
+background:#ffffff;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-family:Arial, sans-serif;
 }
 
-#clock{
-    color:#000000;
-    font-size:80px;
-    letter-spacing:5px;
+.container{
+text-align:center;
 }
+
+.date{
+font-size:4vw;
+color:#000;
+margin-bottom:5px;
+}
+
+.clock{
+font-size:8vw;
+font-weight:bold;
+color:#000;
+letter-spacing:2px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<div id="clock">00:00:00</div>
+<div class="container">
+<div class="date" id="date"></div>
+<div class="clock" id="clock"></div>
+</div>
 
 <script>
+
 function updateClock(){
 
-    const now = new Date();
+const now = new Date()
 
-    let h = now.getHours();
-    let m = now.getMinutes();
-    let s = now.getSeconds();
+const year = now.getFullYear()
+const month = String(now.getMonth()+1).padStart(2,'0')
+const day = String(now.getDate()).padStart(2,'0')
 
-    h = h.toString().padStart(2,'0');
-    m = m.toString().padStart(2,'0');
-    s = s.toString().padStart(2,'0');
+const week = ["일","월","화","수","목","금","토"]
+const weekday = week[now.getDay()]
 
-    document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+let h = String(now.getHours()).padStart(2,'0')
+let m = String(now.getMinutes()).padStart(2,'0')
+let s = String(now.getSeconds()).padStart(2,'0')
+
+document.getElementById("date").innerText =
+`${year}.${month}.${day} (${weekday})`
+
+document.getElementById("clock").innerText =
+`${h}:${m}:${s}`
+
 }
 
-setInterval(updateClock,1000);
-updateClock();
+setInterval(updateClock,1000)
+updateClock()
+
 </script>
 
 </body>
